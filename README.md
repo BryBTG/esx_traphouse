@@ -3,6 +3,7 @@ This resource for ESX adds Traps around the island for criminals to rob! Based o
 
 ### Requirements
 - [esx_policejob](https://github.com/ESX-Org/esx_policejob)
+- [esx_illegal](https://github.com/Xovos/esx_illegal)
 
 ## Download & Installation
 
