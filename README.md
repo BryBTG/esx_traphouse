@@ -1,24 +1,19 @@
 # esx_traphouse
-This resource for ESX adds Traps around the island for criminals to rob!
+This resource for ESX adds Traps around the island for criminals to rob! Based off of esx_robbery.
 
 ### Requirements
 - [esx_policejob](https://github.com/ESX-Org/esx_policejob)
 
 ## Download & Installation
 
-### Using [fvm](https://github.com/qlaffont/fvm-installer)
-```
-fvm install --save --folder=esx esx-org/esx_traphouse
-```
-
 ### Using Git
 ```
 cd resources
-git clone https://github.com/ESX-Org/esx_traphouse [esx]/esx_traphouse
+git clone https://github.com/mrmicheall/esx_traphouse [esx]/esx_traphouse
 ```
 
 ### Manually
-- Download https://github.com/ESX-Org/esx_traphouse/archive/master.zip
+- Download https://github.com/mrmicheall/esx_traphouse/archive/master.zip
 - Put it in the `[esx]` directory
 
 ## Installation
