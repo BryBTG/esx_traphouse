@@ -1,5 +1,5 @@
 # esx_traphouse
-This resource for ESX adds Traps around the island for criminals to rob! Based off of esx_robbery.
+This resource for ESX adds Traps around the island for criminals to rob! Based off of esx_holdup.
 
 ### Requirements
 - [esx_policejob](https://github.com/ESX-Org/esx_policejob)
