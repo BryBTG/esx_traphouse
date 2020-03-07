@@ -1,24 +1,20 @@
 # esx_traphouse
-This resource for ESX adds Traps around the island for criminals to rob!
+This resource for ESX adds "trap houses" around the island for criminals to rob! The criminals can earn money, black money, or any other items you want them to receive for a successful competion. Criminals cannot roam too far from the starting point or die during the robbery else it cancels.
 
 ### Requirements
 - [esx_policejob](https://github.com/ESX-Org/esx_policejob)
+- [esx_drugs (or anyother drug system for drug rewards)] (https://github.com/ESX-Org/esx_drugs) - (Optional)
 
 ## Download & Installation
-
-### Using [fvm](https://github.com/qlaffont/fvm-installer)
-```
-fvm install --save --folder=esx esx-org/esx_traphouse
-```
 
 ### Using Git
 ```
 cd resources
-git clone https://github.com/ESX-Org/esx_traphouse [esx]/esx_traphouse
+git clone https://github.com/mrmicheall/esx_traphouse [esx]/esx_traphouse
 ```
 
 ### Manually
-- Download https://github.com/ESX-Org/esx_traphouse/archive/master.zip
+- Download https://github.com/mrmicheall/esx_traphouse/archive/master.zip
 - Put it in the `[esx]` directory
 
 ## Installation
@@ -30,9 +26,10 @@ start esx_traphouse
 
 # Legal
 ### License
-esx_traphouse - rob Traps
+esx_traphouse - Rob Trap Houses
 
-Copyright (C) 2015-2018 Jérémie N'gadi
+Copyright (C) 2015-2018 Jérémie N'gadi (Original Holdup script)
+Copyright (C) 2019-2010 - Micheal Luttrull
 
 This program Is free software: you can redistribute it And/Or modify it under the terms Of the GNU General Public License As published by the Free Software Foundation, either version 3 Of the License, Or (at your option) any later version.
 
