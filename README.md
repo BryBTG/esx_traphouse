@@ -3,7 +3,7 @@ This resource for ESX adds "trap houses" around the island for criminals to rob!
 
 ### Requirements
 - [esx_policejob](https://github.com/ESX-Org/esx_policejob)
-- [esx_drugs (or anyother drug system for drug rewards)] (https://github.com/ESX-Org/esx_drugs) - (Optional)
+- [esx_drugs](https://github.com/ESX-Org/esx_drugs) - (Optional) You can use this or any other drug system if you want to provide drug/paraphernalia rewards for robbing traphouse.
 
 ## Download & Installation
 
