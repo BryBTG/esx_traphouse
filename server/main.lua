@@ -23,6 +23,25 @@ AddEventHandler('esx_traphouse:tooFar', function(currentTrap)
 	end
 end)
 
+RegisterServerEvent('esx_traphouse:dead')
+AddEventHandler('esx_traphouse:dead', function(currentTrap)
+	local _source = source
+	local xPlayers = ESX.GetPlayers()
+	rob = false
+
+	for i=1, #xPlayers, 1 do
+		local xPlayer = ESX.GetPlayerFromId(xPlayers[i])
+			TriggerClientEvent('esx:showNotification', xPlayers[i], _U('robbery_cancelled_at', Traps[currentTrap].nameOfTrap))
+			TriggerClientEvent('esx_traphouse:killBlip', xPlayers[i])
+	end
+
+	if robbers[_source] then
+		TriggerClientEvent('esx_traphouse:playerDead', _source)
+		robbers[_source] = nil
+		TriggerClientEvent('esx:showNotification', _source, _U('robbery_cancelled_at', Traps[currentTrap].nameOfTrap))
+	end
+end)
+
 RegisterServerEvent('esx_traphouse:robberyStarted')
 AddEventHandler('esx_traphouse:robberyStarted', function(currentTrap)
 	local _source  = source
@@ -69,17 +88,25 @@ AddEventHandler('esx_traphouse:robberyStarted', function(currentTrap)
 						rob = false
 						if xPlayer then
 							TriggerClientEvent('esx_traphouse:robberyComplete', _source, Trap.reward)
-
+							-- Money rewards.
 							if Config.GiveBlackMoney then
 								xPlayer.addAccountMoney('black_money', Trap.reward)
 							else
 								xPlayer.addMoney(Trap.reward)
 							end
-							xPlayer.addInventoryItem("meth",math.random(2,25))
-							xPlayer.addInventoryItem("coke",math.random(2,25))
-							xPlayer.addInventoryItem("marijuana",math.random(2,35))
-							xPlayer.addInventoryItem("heroin",math.random(2,25))
-							xPlayer.addInventoryItem("lsd",math.random(2,25))
+							-- Drug system rewards
+							local chance = math.random(1, 3)
+							if chance == 1 then 
+								xPlayer.addInventoryItem("methburn",1)
+							elseif chance == 2 then
+								xPlayer.addInventoryItem("cokeburn",1)
+							elseif chance == 3 then
+								xPlayer.addInventoryItem("weedburn",1)
+							end
+							xPlayer.addInventoryItem("meth1g",math.random(1,5))
+							xPlayer.addInventoryItem("coke1g",math.random(1,5))
+							xPlayer.addInventoryItem("weed4g",math.random(1,7))
+							xPlayer.addInventoryItem("joint2g",math.random(2,5))
 
 							local xPlayers, xPlayer = ESX.GetPlayers(), nil
 							for i=1, #xPlayers, 1 do

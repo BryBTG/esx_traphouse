@@ -1,5 +1,5 @@
 Locales['en'] = {
-  ['shop_robbery'] = 'Trap Robbery',
+  ['trap_robbery'] = 'Trap Robbery',
   ['press_to_rob'] = 'Press ~INPUT_CONTEXT~ to ~o~rob~s~ ~b~%s~s~',
   ['robbery_timer'] = 'Trap robbery: ~r~%s~s~ seconds remaning',
   ['recently_robbed'] = 'This trap was recently been robbed. Please wait ~y~%s~s~ seconds until you can rob again',
@@ -12,5 +12,5 @@ Locales['en'] = {
   ['robbery_cancelled_at'] = '~r~The robbery at ~b~%s~s~ has been cancelled!',
   ['min_police'] = 'There must be at least ~b~%s cops~s~ in town to rob a trap.',
   ['robbery_already'] = '~r~A robbery is already in progress.',
-  ['no_threat'] = 'you do not pose a threat to the Trap keeper',
+  ['no_threat'] = 'The trap house owner laughs at you because you pose no threat!',
 }

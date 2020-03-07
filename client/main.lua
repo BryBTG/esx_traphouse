@@ -1,6 +1,7 @@
 local holdingUp = false
 local Trap = ""
 local blipTraphouse = nil
+local isDead = false
 ESX = nil
 
 local Keys = {
@@ -20,6 +21,14 @@ Citizen.CreateThread(function()
 		TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 		Citizen.Wait(0)
 	end
+end)
+
+AddEventHandler('esx:onPlayerDeath', function(data)
+    TriggerServerEvent('esx_traphouse:dead', Trap)
+end)
+
+AddEventHandler('playerSpawned', function(spawn)
+    IsDead = false
 end)
 
 function drawTxt(x,y, width, height, scale, text, r,g,b,a, outline)
@@ -51,13 +60,18 @@ AddEventHandler('esx_traphouse:setBlip', function(position)
 
 	SetBlipSprite(blipTraphouse, 161)
 	SetBlipScale(blipTraphouse, 2.0)
-	SetBlipColour(blipTraphouse, 255, 0, 0 )
 
 	PulseBlip(blipTraphouse)
 end)
 
 RegisterNetEvent('esx_traphouse:tooFar')
 AddEventHandler('esx_traphouse:tooFar', function()
+	holdingUp, Trap = false, ''
+	ESX.ShowNotification(_U('robbery_cancelled'))
+end)
+
+RegisterNetEvent('esx_traphouse:playerDead')
+AddEventHandler('esx_traphouse:playerDead', function()
 	holdingUp, Trap = false, ''
 	ESX.ShowNotification(_U('robbery_cancelled'))
 end)
@@ -85,7 +99,7 @@ AddEventHandler('esx_traphouse:startTimer', function()
 	Citizen.CreateThread(function()
 		while holdingUp do
 			Citizen.Wait(0)
-			drawTxt(0.66, 1.44, 1.0, 1.0, 0.4, _U('robbery_timer', timer), 255, 255, 255, 255)
+			drawTxt(0.85, 1.44, 1.0, 1.0, 0.4, _U('robbery_timer', timer), 255, 255, 255, 255)
 		end
 	end)
 end)
@@ -98,7 +112,7 @@ Citizen.CreateThread(function()
 		SetBlipAsShortRange(blip, true)
 
 		BeginTextCommandSetBlipName("STRING")
-		AddTextComponentString(_U('shop_robbery'))
+		AddTextComponentString(_U('trap_robbery'))
 		EndTextCommandSetBlipName(blip)
 	end
 end)
@@ -107,30 +121,32 @@ Citizen.CreateThread(function()
 	while true do
 		Citizen.Wait(1)
 		local playerPos = GetEntityCoords(PlayerPedId(), true)
+		hour = GetClockHours()
+		if (hour >= Config.StartHour and hour <= 24) or  (hour <= Config.EndHour and hour >= 00) then
+			for k,v in pairs(Traps) do
+				local TrapPos = v.position
+				local distance = Vdist(playerPos.x, playerPos.y, playerPos.z, TrapPos.x, TrapPos.y, TrapPos.z)
 
-		for k,v in pairs(Traps) do
-			local TrapPos = v.position
-			local distance = Vdist(playerPos.x, playerPos.y, playerPos.z, TrapPos.x, TrapPos.y, TrapPos.z)
+				if distance < Config.Marker.DrawDistance then
+					if not holdingUp then
+						DrawMarker(Config.Marker.Type, TrapPos.x, TrapPos.y, TrapPos.z - 1, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Config.Marker.x, Config.Marker.y, Config.Marker.z, Config.Marker.r, Config.Marker.g, Config.Marker.b, Config.Marker.a, false, false, 2, false, false, false, false)
 
-			if distance < Config.Marker.DrawDistance then
-				if not holdingUp then
-					DrawMarker(Config.Marker.Type, TrapPos.x, TrapPos.y, TrapPos.z - 1, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Config.Marker.x, Config.Marker.y, Config.Marker.z, Config.Marker.r, Config.Marker.g, Config.Marker.b, Config.Marker.a, false, false, 2, false, false, false, false)
+						if distance < 0.5 then
+							ESX.ShowHelpNotification(_U('press_to_rob', v.nameOfTrap))
 
-					if distance < 0.5 then
-						ESX.ShowHelpNotification(_U('press_to_rob', v.nameOfTrap))
-
-						if IsControlJustReleased(0, Keys['E']) then
-							if IsPedArmed(PlayerPedId(), 4) then
-								TriggerServerEvent('esx_traphouse:robberyStarted', k)
-							else
-								ESX.ShowNotification(_U('no_threat'))
+							if IsControlJustReleased(0, Keys['E']) then
+								if IsPedArmed(PlayerPedId(), 4) then
+									TriggerServerEvent('esx_traphouse:robberyStarted', k)
+								else
+									ESX.ShowNotification(_U('no_threat'))
+								end
 							end
 						end
 					end
 				end
 			end
 		end
-
+		
 		if holdingUp then
 			local TrapPos = Traps[Trap].position
 			if Vdist(playerPos.x, playerPos.y, playerPos.z, TrapPos.x, TrapPos.y, TrapPos.z) > Config.MaxDistance then
