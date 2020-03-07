@@ -1,5 +1,5 @@
 # esx_traphouse
-This resource for ESX adds "trap houses" around the island for criminals to rob! The criminals can earn money, black money, or any other items you want them to receive for a successful competion. Criminals cannot roam too far from the starting point or die during the robbery else it cancels.
+This resource for ESX adds "trap houses" around the island for criminals to rob, based off of Jérémie N'gadi's esx_holdup script. The criminals can earn money, black money, or any other items you want them to receive for a successful competion. Criminals cannot roam too far from the starting point or die during the robbery else it cancels.
 
 ### Requirements
 - [esx_policejob](https://github.com/ESX-Org/esx_policejob)
@@ -27,8 +27,6 @@ start esx_traphouse
 # Legal
 ### License
 esx_traphouse - Rob Trap Houses
-
-Copyright (C) 2015-2018 Jérémie N'gadi (Original Holdup script)
 
 Copyright (C) 2019-2010 - Micheal Luttrull
 
